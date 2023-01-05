@@ -352,7 +352,7 @@ local RunService = game:GetService("RunService")
 
 RunService.Heartbeat:Connect(function()
     pcall(function()
-        for i,v in pairs(game.Players:GetChildren()) do
+        for i,v in pairs(game.Players[value]) do
             if v.Name ~= game.Players.LocalPlayer.Name then
                 local hrp = v.Character.HumanoidRootPart
                 hrp.Velocity = Vector3.new(0, 0, 0)
