@@ -977,7 +977,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Wo
 wait(0.3)
 fireclickdetector(game:GetService("Workspace").Ignored.Shop.Armor["[High Armor] - $550"].ClickDetector)
 
-wait(1.3)
+wait(0.3)
 p1.CFrame = pos
 
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
