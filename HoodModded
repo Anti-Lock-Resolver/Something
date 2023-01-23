@@ -334,6 +334,7 @@ end})
 PlayerMain4:AddToggle{text = "Anti-Stomp", flag = "AntiStompEnabled",callback = function(x)
      if x == true then
         game:GetService('RunService'):BindToRenderStep("Anti-Stomp", 0 , function()
+            if game.Players.LocalPlayer.Character.Humanoid.Health <= 10 then
                     game.Players.LocalPlayer.Character.I_LOADED_I:Destroy()
                     wait(10)
                     for i,v in pairs(game.Players.LocalPlayer.Character.RagdollConstraints:GetChildren()) do
@@ -356,10 +357,11 @@ PlayerMain4:AddToggle{text = "Anti-Stomp", flag = "AntiStompEnabled",callback = 
                     wait(0.5) 
                     game.Players.LocalPlayer.Character.Head:Destroy()
                     game.Players.LocalPlayer.Character.HumanoidRootPart:Destroy()
-end)
     elseif x == false then
         game:GetService('RunService'):UnbindFromRenderStep("Anti-Stomp")
     end
+end)
+end
 end}
 
 local PlayerMain5 = PlayerColunm2:AddSection("Player")
@@ -758,7 +760,7 @@ v.Material = "Plastic"
 end
 end
 end})
-MiscMain4:AddButton({text = "Turn off Christmas music", callback = function()
+MiscMain4:AddButton({text = "Turn off music", callback = function()
 game:GetService("Workspace").Radio["Jingle Bells"].Playing = false
 game:GetService("Workspace").Radio.ParticleEmitter.Enabled = false
 end})
