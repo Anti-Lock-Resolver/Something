@@ -314,27 +314,10 @@ game:GetService('UserInputService').InputBegan:Connect(function(Key)
 end)
 end})
 
-PlayerMain4:AddBox({text = "Resolve: (Persons Name)", skipflag = true, callback = function(speaker)
-if game.Players[speaker] then
-local RunService = game:GetService("RunService")
-
-RunService.Heartbeat:Connect(function()
-    pcall(function()
-        for i,v in pairs(game.Players[speaker]) do
-            if v.Name ~= game.Players.LocalPlayer.Name then
-                local hrp = v.Character.HumanoidRootPart
-                hrp.Velocity = Vector3.new(0, 0, 0)
-            end
-        end
-    end)
-end)
-end
-end})
-
 PlayerMain4:AddToggle{text = "Anti-Stomp", flag = "AntiStompEnabled",callback = function(x)
      if x == true then
         game:GetService('RunService'):BindToRenderStep("Anti-Stomp", 0 , function()
-            if game.Players.LocalPlayer.Character.Humanoid.Health <= 10 then
+            if game.Players.LocalPlayer.Character.Humanoid.Health <= 5 then
                     game.Players.LocalPlayer.Character.I_LOADED_I:Destroy()
                     wait(10)
                     for i,v in pairs(game.Players.LocalPlayer.Character.RagdollConstraints:GetChildren()) do
@@ -630,12 +613,46 @@ getgenv().other2 = false
 end})
 
 MiscMain1:AddButton({text = "Armor", callback = function()
-    local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
-local item0 = "[High Armor] - $550"
+    --[[
+    while wait(0.5) do
+		for i,v in pairs(game.Workspace.Cashiers:GetChildren()) do
+			if v.Humanoid.Health > 0 then
+			    wait(0.5)
+				spawn(function()
+					while v.Humanoid.Health > 0 do
+						wait()
+						pcall(function()plr.Character.HumanoidRootPart.CFrame = v.Head.CFrame * CFrame.new(0, -1, 2)end)
+					end
+				end)
+				wait(0.1)
+				for ii,vv in pairs(game.Workspace.Ignored.Drop:GetChildren()) do
+					if vv.Name ~= "MoneyDrop" then continue end
+					if (plr.Character.RightFoot.Position - vv.Position).Magnitude > 25 then continue end
+					vv.Name = "Grabbing"
+					vv.Anchored = true
+					while game.Workspace.Ignored.Drop:FindFirstChild("Grabbing") do
+						wait()
+						pcall(function()
+							plr.character.RightFoot.CFrame = vv.CFrame
+							if not reset then fireclickdetector(vv.ClickDetector) end
+						end)
+					end
+				end
+			end
+		end
+end
+    ]]
+    
+    
+    
+local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
 local pos = p1.CFrame
 local Head = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-getgenv().armor = true 
+local plr = game.Players.LocalPlayer
+local v = game.Workspace.Ignored.Shop.Armor['[High Armor] - $550']
 
+getgenv().armor = true 
+    
 game:GetService("RunService").heartbeat:Connect(function()
     if getgenv().armor == true then 
     local abc = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
@@ -648,17 +665,19 @@ end)
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 1.5
 wait(0.3)
 game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart').CFrame = CFrame.new(-1229.43945, 333.783966, -514.504639, 0.15644598, -6.56401025e-05, -0.987686574, 6.56401025e-05, 1, -5.60612789e-05, 0.987686574, -5.60612789e-05, 0.15644598)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop.Armor["[High Armor] - $550"].Head.CFrame * CFrame.new(0,-2.5,0)
+p1.CFrame = v.Head.CFrame * CFrame.new(0,-2,0)
+--pcall(function()plr.Character.HumanoidRootPart.CFrame = v.Head.CFrame * CFrame.new(0, -3, 0)end)
 --Head.Anchored = true
 wait(0.3)
 fireclickdetector(game:GetService("Workspace").Ignored.Shop.Armor["[High Armor] - $550"].ClickDetector)
-wait(1)
+wait(0.3)
 p1.CFrame = pos
 --Head.Anchored = false
 
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
 wait(0.5)
 getgenv().armor = false
+
 end})
 
 MiscMain1:AddButton({text = "Food", callback = function()
@@ -720,6 +739,23 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[getgen
 wait(0.5)
 	game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
 	getgenv().target = false
+end})
+
+MiscMain2:AddButton({text = "Resolve", callback = function()
+if game.Players[getgenv().Target] then
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
+    pcall(function()
+        for i,v in pairs(game.Players[getgenv().Target]) do
+            if v.Name ~= game.Players.LocalPlayer.Name then
+                local hrp = v.Character.HumanoidRootPart
+                hrp.Velocity = Vector3.new(0, 0, 0)
+            end
+        end
+    end)
+end)
+end
 end})
 
 local MiscColunm2 = MiscTab:AddColumn();
